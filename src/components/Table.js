@@ -24,13 +24,23 @@ const Table = () => {
         .then(res => res.json())
         .then(result => {
             setHeaders(result.data.headers[0]);
-            setRows(result.data.rows);
+            const r = result.data.rows.map(d => {
+                return {...d, update: <button onClick={() => handleUpdate(d.id)} className="update-button" >Update</button>};
+            })
+            setRows(r);
             setIsLoading(false);
             result.messages.forEach(msg => {
+            console.log("🚀 ~ file: Table.js ~ line 30 ~ useEffect ~ result.data.headers[0]", result.data.headers[0])
+            console.log("🚀 ~ file: Table.js ~ line 30 ~ useEffect ~ result.data.rows", result.data.rows)
                 notify(result.status === "false" ? "error" : "success", msg);
             })
         });
     }, []);
+
+    // const UpdateBtn = id => <button onClick={() => handleUpdate(d.id)}>Update</button>
+    function handleUpdate(id){
+        console.log(id);
+    }
 
     return (
         <div>            
@@ -38,10 +48,11 @@ const Table = () => {
                 {
                     Object.keys(headers).map(key => {
                         const {hidden, searchable, sortable, title} = headers[key];
-                        return (hidden ? null : <Column filter={searchable} sortable={sortable} field={key} header={title} />)
+                        return (hidden ? null : <Column key={key} filter={searchable} sortable={sortable} field={key} header={title} />)
 
                     })
                 }
+                <Column filter={false} sortable={false} field="update" header="Update" />
             </DataTable>
         </div>
     );
