@@ -33,21 +33,16 @@ const Table = () => {
     }, []);
 
     return (
-        <div>
-            {
-                isLoading ? 
-                "loading" 
-                :
-                <DataTable value={rows}>
-                    {
-                        Object.keys(headers).map(key => {
-                            const {hidden, searchable, sortable, title} = headers[key];
-                            return (hidden ? null : <Column filter={searchable} sortable={sortable} field={key} header={title} />)
+        <div>            
+            <DataTable lazy value={rows} loading={isLoading}>
+                {
+                    Object.keys(headers).map(key => {
+                        const {hidden, searchable, sortable, title} = headers[key];
+                        return (hidden ? null : <Column filter={searchable} sortable={sortable} field={key} header={title} />)
 
-                        })
-                    }
-                </DataTable>
-            }
+                    })
+                }
+            </DataTable>
         </div>
     );
 }
