@@ -45,13 +45,11 @@ const GetForm = () => {
         const newFormData = {...formData};
         newFormData[name] = value;
         setFormData(newFormData);
-        console.log(name, value);
     }
 
     function makeInputElement(key){
         const data = formStructure[key];
         const {title, type, value, required, html_attr} = data;
-        console.log(data);
         if(type !== "radio" && type !== "select"){
             return (
             <div key={key} >
