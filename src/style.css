@@ -26,7 +26,8 @@ nav a {
   color: #fff;
 }
 
-button {
+button,
+.update-button {
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -37,6 +38,7 @@ button {
   background: tomato;
   color: #fff;
   font-size: 1.2rem;
+  text-decoration: none;
 }
 
 .form-container {

@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import notify from './notify';
 
 const GetForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formStructure, setFormStructure] = useState({});
     const [formData, setFormData] = useState({});
-    const notify = (type, message) => {
-        toast[type](message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        })
-    };
 
     useEffect(() => {
         fetch("https://riaz.dev.alpha.net.bd/testing/api/get_form.php")
@@ -38,7 +27,6 @@ const GetForm = () => {
     function handleSubmit(e){
         e.preventDefault();
         setIsSubmitting(true);
-        console.log(formData);
 
 
         fetch("https://riaz.dev.alpha.net.bd/testing/api/submit_form.php", {
@@ -49,7 +37,7 @@ const GetForm = () => {
         .then(({status, messages}) => {
             setIsSubmitting(false);
             messages.forEach(msg => notify(status, msg));
-        })
+        });
     }
 
     const handleInput = (e) => {
