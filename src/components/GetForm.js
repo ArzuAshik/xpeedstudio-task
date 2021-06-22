@@ -106,7 +106,7 @@ const GetForm = () => {
     }
     return (
         isLoading ? "Loading" :
-        <div>
+        <div className="form-container">
             <form onSubmit={handleSubmit}>
                 {
                     Object.keys(formStructure).map(key => makeInputElement(key))

@@ -7,14 +7,17 @@ import {
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import GetForm from './components/GetForm';
+import Navbar from "./components/Navbar";
 import NotFound from './components/NotFound';
 import Table from "./components/Table";
+import "./style.css";
  
  
 
 function App() {  
   return (
     <Router>
+      <Navbar />
       <Switch>
         <Route exact path="/" component={Table} />
         <Route exact path="/get-form" component={GetForm} />
