@@ -72,3 +72,8 @@ button[type="submit"] {
   color: #fff;
   font-size: 1rem;
 }
+
+form input[type="radio"] {
+  width: auto;
+  margin: 0 10px;
+}

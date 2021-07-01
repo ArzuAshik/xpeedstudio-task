@@ -2,6 +2,7 @@ import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import baseURL from '../api';
 import notify from './notify';
 
 const Table = ({setList}) => {
@@ -10,7 +11,7 @@ const Table = ({setList}) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect( () => {
-        fetch("https://riaz.dev.alpha.net.bd/testing/api/list.php")
+        fetch(baseURL + "list.php")
         .then(res => res.json())
         .then(result => {
             setHeaders(result.data.headers[0]);

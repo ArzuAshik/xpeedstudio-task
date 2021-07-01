@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import baseURL from '../api';
 import notify from './notify';
 
 const UpdateForm = ({list}) => {    
@@ -22,7 +23,7 @@ const UpdateForm = ({list}) => {
 
     function handleSubmit(e){
         e.preventDefault();
-        fetch("https://riaz.dev.alpha.net.bd/testing/api/submit_form.php", {
+        fetch(baseURL + "submit_form.php", {
             method: "POST",
             body: JSON.stringify(formData)
         })

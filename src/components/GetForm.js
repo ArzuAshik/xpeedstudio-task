@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import baseURL from '../api';
 import notify from './notify';
 
 const GetForm = () => {
@@ -8,7 +9,7 @@ const GetForm = () => {
     const [formData, setFormData] = useState({});
 
     useEffect(() => {
-        fetch("https://riaz.dev.alpha.net.bd/testing/api/get_form.php")
+        fetch(baseURL + "get_form.php")
         .then(res => res.json())
         .then(result => {
             const data = result.data.fields[0]
@@ -29,7 +30,7 @@ const GetForm = () => {
         setIsSubmitting(true);
 
 
-        fetch("https://riaz.dev.alpha.net.bd/testing/api/submit_form.php", {
+        fetch(baseURL + "submit_form.php", {
             method: "POST",
             body: JSON.stringify(formData)
         })
@@ -59,7 +60,7 @@ const GetForm = () => {
             </div>
             )
         } else{
-            const { default: defaultValue, options } = data;
+            const { default: defaultValue, options } = data;            
             if(type === "select"){
                 return (
                     <div key={key} >
@@ -77,10 +78,16 @@ const GetForm = () => {
                     <div key={key} >
                         <p>{title}</p>
                             {
-                                options.map( ({key: val, label}) => <label key={val} >
-                                    <input onChange={e => handleInput(e)} name={key} type="radio" value={val} {...html_attr} checked={val === defaultValue} />
-                                    {label}
-                                    </label>)
+                                options.map( ({key: val, label}) =>{
+                                    const checked = {}
+                                    if(formData[key] === val) checked.checked = "checked";
+                                    return(
+                                        <label key={val} >
+                                        <input onChange={e => handleInput(e)} name={key} type="radio" value={val} {...html_attr} {...checked} />
+                                        {label}
+                                        </label>
+                                    )
+                                })
                             }
                             <label>{title}
                         </label>
@@ -91,7 +98,7 @@ const GetForm = () => {
 
     }
     return (
-        isLoading ? "Loading" :
+        isLoading ? <h2 style={{padding: "50px", textAlign: "center"}}>Loading...</h2> :
         <div className="form-container">
             <form onSubmit={handleSubmit}>
                 {
