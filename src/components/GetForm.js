@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import baseURL from '../api';
+import MakeInputElement from "./MakeInputElement";
 import notify from './notify';
 
 const GetForm = () => {
@@ -48,61 +49,13 @@ const GetForm = () => {
         setFormData(newFormData);
     }
 
-    function makeInputElement(key){
-        const data = formStructure[key];
-        const {title, type, value, required, html_attr} = data;
-        if(type !== "radio" && type !== "select"){
-            return (
-            <div key={key} >
-                <label>{title}
-                    <input onChange={e => handleInput(e)} type={type} name={key} defaultValue={value} required={required} {...html_attr} />
-                </label>
-            </div>
-            )
-        } else{
-            const { default: defaultValue, options } = data;            
-            if(type === "select"){
-                return (
-                    <div key={key} >
-                        <label>{title}
-                            <select onChange={e => handleInput(e)} name={key} defaultValue={defaultValue} required={required} {...html_attr} >
-                                {
-                                    options.map( ({key: val, label}) => <option key={val} value={val}>{label}</option>)
-                                }
-                            </select>
-                        </label>
-                    </div>
-                )
-            } else{
-                return (
-                    <div key={key} >
-                        <p>{title}</p>
-                            {
-                                options.map( ({key: val, label}) =>{
-                                    const checked = {}
-                                    if(formData[key] === val) checked.checked = "checked";
-                                    return(
-                                        <label key={val} >
-                                        <input onChange={e => handleInput(e)} name={key} type="radio" value={val} {...html_attr} {...checked} />
-                                        {label}
-                                        </label>
-                                    )
-                                })
-                            }
-                            <label>{title}
-                        </label>
-                    </div>
-                )
-            }
-        }
-
-    }
+    
     return (
         isLoading ? <h2 style={{padding: "50px", textAlign: "center"}}>Loading...</h2> :
         <div className="form-container">
             <form onSubmit={handleSubmit}>
                 {
-                    Object.keys(formStructure).map(key => makeInputElement(key))
+                    Object.keys(formStructure).map(key => <MakeInputElement k={key} key={key} handleInput={handleInput} formData={formData} data={formStructure[key]} />)
                 }
                 <button type="submit" disabled={isSubmitting} >{isSubmitting ? "Submitting" : "Submit"}</button>
             </form>
