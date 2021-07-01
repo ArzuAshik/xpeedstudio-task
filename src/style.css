@@ -77,3 +77,36 @@ form input[type="radio"] {
   width: auto;
   margin: 0 10px;
 }
+
+/* not found page */
+.not-found {
+  height: calc(100vh - 75px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.not-found h1 {
+  color: rgb(220, 0, 0);
+  font-size: 120px;
+  line-height: 140px;
+  letter-spacing: 30px;
+}
+.not-found h2 {
+  font-size: 36px;
+  letter-spacing: 8px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.not-found p {
+  font-size: 1.6rem;
+  margin-top: 3vh;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.not-found p span {
+  color: rgb(220, 0, 0);
+}
